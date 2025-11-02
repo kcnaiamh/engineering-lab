@@ -1,0 +1,70 @@
+services:
+  squid:
+    image: ubuntu/squid:6.10-24.10_beta
+    container_name: squid_proxy
+    ports:
+      - "3128:3128" # Expose Squid's port to the host machine
+    volumes:
+      - ./squid/squid.conf:/etc/squid/squid.conf
+      - ./squid/passwords:/etc/squid/passwords
+      - ./certs:/etc/squid/ssl:ro
+    networks:
+      - public_net
+    depends_on:
+      - nginx
+
+  nginx:
+    image: nginx:1.28.0-alpine-slim
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
+    networks:
+      - public_net
+      - shared_net
+    ports:
+      - "443:443"
+    depends_on:
+      - transfer_service
+      - search_service
+
+  transfer_service:
+    build: ./microservices/transfer_service
+    container_name: transfer_service
+    networks:
+      - private_net
+      - shared_net
+    expose:
+      - "8000"
+    environment:
+      FAULT_RATE: ${FAULT_RATE} # 50% failure rate
+      EXTRA_LATENCY_MS: ${EXTRA_LATENCY_MS}
+      LATENCY_JITTER_MS: ${LATENCY_JITTER_MS}
+      TIMEOUT_MS: ${TIMEOUT_MS}
+      RANDOM_SEED: ${RANDOM_SEED}
+      MAX_CACHE_SIZE: ${MAX_CACHE_SIZE}
+      CACHE_TTL_SECONDS: ${CACHE_TTL_SECONDS}
+      PROMETHEUS_MULTIPROC_DIR: ${PROMETHEUS_MULTIPROC_DIR}
+
+  search_service:
+    build: ./microservices/search_service
+    container_name: search_service
+    ports:
+      - "8001:8001"
+    environment:
+      # Fault injection configuration
+      FAULT_RATE: ${FAULT_RATE}  # 2% default failure rate
+      EXTRA_LATENCY_MS: ${EXTRA_LATENCY_MS}  # No extra latency by default
+      MAX_WORKERS: ${MAX_WORKERS}  # Concurrency limit
+    # restart: unless-stopped
+    networks:
+      - private_net
+      - shared_net
+
+networks:
+  public_net:
+    driver: bridge
+  private_net:
+    driver: bridge
+  shared_net:
+    driver: bridge

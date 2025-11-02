@@ -1,0 +1,18 @@
+# ======================== Filebeat Modules ==========================
+filebeat.modules:
+  - module: suricata
+    # All logs are stored in the 'eve' fileset
+    eve:
+      enabled: true
+      # Path to the Suricata log file inside the container
+      var.paths: ["/var/log/suricata/eve.json"]
+
+# ======================= Elasticsearch Output =======================
+output.elasticsearch:
+  # The address of your Elasticsearch container
+  hosts: ["elasticsearch:9200"]
+
+# ======================= Kibana Dashboards ==========================
+# This section loads the pre-built Suricata dashboards into Kibana
+setup.kibana:
+  host: "kibana:5601"

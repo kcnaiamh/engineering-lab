@@ -1,0 +1,12 @@
+# grafana-provisioning/provisioning/dashboards/provider.yaml
+apiVersion: 1
+
+providers:
+  - name: 'default'  # A name for this provider
+    orgId: 1
+    folder: 'Provisioned Dashboards' # The name of the folder in the Grafana UI
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /var/lib/grafana/dashboards # The path inside the container where Grafana will look for dashboards

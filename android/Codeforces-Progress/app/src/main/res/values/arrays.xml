@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="cf_lvl">
+        <item>@color/lvl_800</item>
+        <item>@color/lvl_900</item>
+        <item>@color/lvl_1000</item>
+        <item>@color/lvl_1100</item>
+        <item>@color/lvl_1200</item>
+        <item>@color/lvl_1300</item>
+        <item>@color/lvl_1400</item>
+        <item>@color/lvl_1500</item>
+        <item>@color/lvl_1600</item>
+        <item>@color/lvl_1700</item>
+        <item>@color/lvl_1800</item>
+        <item>@color/lvl_1900</item>
+        <item>@color/lvl_2000</item>
+        <item>@color/lvl_2100</item>
+        <item>@color/lvl_2200</item>
+        <item>@color/lvl_2300</item>
+        <item>@color/lvl_2400</item>
+        <item>@color/lvl_2500</item>
+        <item>@color/lvl_2600</item>
+        <item>@color/lvl_2700</item>
+        <item>@color/lvl_2800</item>
+        <item>@color/lvl_2900</item>
+        <item>@color/lvl_3000</item>
+        <item>@color/lvl_3100</item>
+        <item>@color/lvl_3200</item>
+        <item>@color/lvl_3300</item>
+        <item>@color/lvl_3400</item>
+        <item>@color/lvl_3500</item>
+    </integer-array>
+</resources>

@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.example.Codeforces_Progress"
+        minSdkVersion 18
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+}
+
+// Adding Floating Action Button library
+dependencies {
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+}
+
+// Adding Cardview library
+dependencies {
+    implementation 'androidx.cardview:cardview:1.0.0'
+}
+
+// Adding Material Components for Android Library
+// used for toolbar and tab layout
+dependencies {
+    implementation 'com.google.android.material:material:1.1.0'
+}
+
+// Adding Retrofit HTTP client
+dependencies {
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+}
+
+// Adding MPAndroidChart library
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+dependencies {
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+}
+
+// Adding Picasso library
+dependencies {
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+}
+
+// Adding SwipeRefreshLaout
+dependencies {
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+}
+
+// Adding RecyclerView
+dependencies {
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+}

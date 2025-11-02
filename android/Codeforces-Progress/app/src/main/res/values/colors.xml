@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6709ED</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlueGreen">#0e9aa7</color>
+    <color name="colorPrussianBlue">#03396c</color>
+
+    <color name="lvl_800">#85837e</color>
+    <color name="lvl_900">#779974</color>
+    <color name="lvl_1000">#72ab6d</color>
+    <color name="lvl_1100">#51944b</color>
+    <color name="lvl_1200">#30db21</color>
+    <color name="lvl_1300">#16db54</color>
+    <color name="lvl_1400">#12dea7</color>
+    <color name="lvl_1500">#12dede</color>
+    <color name="lvl_1600">#12abde</color>
+    <color name="lvl_1700">#1215de</color>
+    <color name="lvl_1800">#4812de</color>
+    <color name="lvl_1900">#9012de</color>
+    <color name="lvl_2000">#b512de</color>
+    <color name="lvl_2100">#ded712</color>
+    <color name="lvl_2200">#eda909</color>
+    <color name="lvl_2300">#f7af05</color>
+    <color name="lvl_2400">#f75605</color>
+    <color name="lvl_2500">#DC3A3A</color>
+    <color name="lvl_2600">#eb4209</color>
+    <color name="lvl_2700">#D8452B</color>
+    <color name="lvl_2800">#E12210</color>
+    <color name="lvl_2900">#DA0E0E</color>
+    <color name="lvl_3000">#ff0000</color>
+    <color name="lvl_3100">#ff0000</color>
+    <color name="lvl_3200">#ff0000</color>
+    <color name="lvl_3300">#ff0000</color>
+    <color name="lvl_3400">#ff0000</color>
+    <color name="lvl_3500">#ff0000</color>
+
+
+</resources>

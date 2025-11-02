@@ -1,0 +1,23 @@
+<resources>
+    <!-- Base application theme. -->
+    <!-- Using .NoActionBar for not showing actionbar-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Customizing floating action button -->
+    <style name="CustomFab">
+        <item name="android:background">@drawable/fab_label_bg</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <!-- Customizing alert dialog like popup layout -->
+    <style name="AppTheme.CustomTheme">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+</resources>

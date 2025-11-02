@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- background layout for title
+     of floating action button -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/darker_gray" />
+    <padding
+        android:bottom="6dp"
+        android:left="16dp"
+        android:right="16dp"
+        android:top="6dp" />
+    <corners android:radius="5dp" />
+</shape>

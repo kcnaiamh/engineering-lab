@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".Fragment1.DataActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/LLProgressBarId"
+            android:layout_width="fill_parent"
+            android:layout_height="700dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/progressBarId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLDataId"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="fill_vertical"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:id="@+id/avatarId"
+                        android:layout_width="125dp"
+                        android:layout_height="125dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/user" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <TextView
+                    android:id="@+id/handleId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="130dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_toStartOf="@+id/prizeId"
+                    android:gravity="center"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="HANDLE"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/ratingId"
+                    android:layout_width="153dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/handleId"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="125dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_toStartOf="@+id/prizeId"
+                    android:gravity="center"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="CurrentRating/MaxRating"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
+
+                <ImageView
+                    android:id="@+id/prizeId"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+
+                    android:layout_marginLeft="170dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/medal" />
+
+                <TextView
+                    android:id="@+id/maxRankId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/prizeId"
+                    android:layout_alignStart="@+id/prizeId"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="0dp"
+                    android:gravity="center"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="MaxRank"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="#c0c0c0" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/PointTextViewId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="0dp"
+                    android:text="Point: "
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/scoreId"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="70dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_toStartOf="@+id/scoreViewId"
+                    android:progressBackgroundTint="#E4EFDE"
+                    android:progressTint="#14CD1E" />
+
+                <TextView
+                    android:id="@+id/scoreViewId"
+                    style="@android:style/TextAppearance"
+                    android:layout_width="45dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="5dp"
+                    android:gravity="end|top|center"
+                    android:paddingBottom="15dp"
+                    android:text="100/100"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="10dp" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="#c0c0c0"
+                android:paddingTop="0dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/fullNameId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="FullName"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/rankId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="Rank"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/friendOfCountId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="FriendOf"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/contributionId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="Contribution"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/emailId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="Email"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/countryId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="Country"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/registeredId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="RegestrationTime"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/organizationId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="Organization"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/lastAcceptedId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="LastAccepted"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="#c0c0c0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="0"
+                android:shadowDy="5"
+                android:shadowRadius="13"
+                android:text="Problem Rating vs. AC Submission"
+                android:textColor="@color/colorBlack"
+                android:textSize="16.5dp" />
+
+            <com.github.mikephil.charting.charts.ScatterChart
+                android:id="@+id/scatterChart"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginBottom="20dp"
+                android:baselineAligned="false" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="#c0c0c0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:shadowColor="@android:color/black"
+                android:shadowDx="0"
+                android:shadowDy="5"
+                android:shadowRadius="13"
+                android:text="AC Problem Rating vs. Contest Id"
+                android:textColor="@color/colorBlack"
+                android:textSize="16.5dp" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChartId"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_marginBottom="20dp" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</ScrollView>

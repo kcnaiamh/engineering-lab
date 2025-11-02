@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Codeforces Progress</string>
+    <string name="hint">Enter a handle</string>
+    <string name="add_button">Add</string>
+    <string name="delete_button">Delete</string>
+    <string name="add_handle">Add Handle</string>
+    <string name="delete_handle">Delete Handle</string>
+    <string name="warning_1">Something went wrong, please try again later</string>
+    <string name="warning_2">Check you internet connection and try again</string>
+    <string name="request_1">Please input a handle</string>
+</resources>

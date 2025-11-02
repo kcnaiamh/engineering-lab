@@ -1,0 +1,17 @@
+config:
+  vxlan-project:ssh_key_name: master-key
+  vxlan-project:instance_count: "3"
+  vxlan-project:create_key: "true"
+  vxlan-project:public_subnet_cidrs:
+    - 192.168.1.0/24
+    - 192.168.2.0/24
+    - 192.168.3.0/24
+  vxlan-project:vpc_cidr: 192.168.0.0/16
+  vxlan-project:ssh_port: "22"
+  vxlan-project:http_port: "80"
+  vxlan-project:vxlan_port: "4789"
+  vxlan-project:ssh_src_ips: 0.0.0.0/0
+  vxlan-project:http_src_ips: 0.0.0.0/0
+  vxlan-project:vxlan_src_ips: 192.168.0.0/22
+  pulumi:tags:
+    pulumi:template: aws-python

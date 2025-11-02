@@ -1,0 +1,20 @@
+name: vxlan-project
+description: Built a multi-datacenter microservices platform using Docker, VXLAN, and Makefiles, simulating 3 datacenters with cross-datacenter service communication and load balancing.
+runtime:
+  name: python
+  options:
+    toolchain: pip
+    virtualenv: venv
+
+main: src
+
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-python
+
+template:
+  config:
+    aws:region:
+      description: AWS region to deploy into
+      default: ap-southeast-1

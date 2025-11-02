@@ -1,0 +1,73 @@
+services:
+  # API Gateway
+  nginx-gateway:
+    depends_on:
+      - order-service
+      - user-service
+    image: nginx:alpine
+    container_name: nginx-gateway-backup
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      br-vxlan:
+        ipv4_address: 10.10.0.101
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      start_period: 40s
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Order Service and its database
+  order-service:
+    build:
+      context: ./order-service
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - USER_SERVICE_URL=http://user-service:8003/api/v1
+      - PRODUCT_SERVICE_URL=http://product-service:8000/api/v1
+      - INVENTORY_SERVICE_URL=http://inventory-service:8002/api/v1
+    env_file:
+      - ./order-service/.env
+    networks:
+      br-vxlan:
+        ipv4_address: 10.10.0.7
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8001/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # User Service and its database
+  user-service:
+    build:
+      context: ./user-service
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8003:8003"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres-user:5432/user_db
+    env_file:
+      - ./user-service/.env
+    networks:
+      br-vxlan:
+        ipv4_address: 10.10.0.8
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8003/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  br-vxlan:
+    external: true

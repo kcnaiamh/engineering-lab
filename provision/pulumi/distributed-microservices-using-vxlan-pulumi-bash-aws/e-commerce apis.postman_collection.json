@@ -1,0 +1,911 @@
+{
+	"info": {
+		"_postman_id": "163208e3-ef0c-40b6-a03c-affaa7cd2dd1",
+		"name": "e-commerce apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37309564"
+	},
+	"item": [
+		{
+			"name": "1. User Registration and Authentication",
+			"item": [
+				{
+					"name": "Register a New User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"kcnaiamh@gmail.com\",\r\n    \"password\": \"Password123\",\r\n    \"first_name\": \"Naimul\",\r\n    \"last_name\": \"Islam\",\r\n    \"phone\": \"01969473897\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Generated from cURL: curl -X POST \"http://localhost/api/v1/auth/register\" \\\r\n  -H \"Content-Type: application/json\" \\\r\n  -d '{\r\n    \"email\": \"customer@example.com\",\r\n    \"password\": \"Password123\",\r\n    \"first_name\": \"Example\",\r\n    \"last_name\": \"Customer\",\r\n    \"phone\": \"555-123-4567\"\r\n  }' | jq ."
+					},
+					"response": [
+						{
+							"name": "new user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"naim@example.com\",\r\n    \"password\": \"Password123\",\r\n    \"first_name\": \"Naimul\",\r\n    \"last_name\": \"Islam\",\r\n    \"phone\": \"555-123-4567\"\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{TARGET_HOST}}/api/v1/auth/register",
+									"protocol": "http",
+									"host": [
+										"{{TARGET_HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.5"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Jun 2025 14:31:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "180"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"email\": \"naim@example.com\",\n    \"first_name\": \"Naimul\",\n    \"last_name\": \"Islam\",\n    \"phone\": \"555-123-4567\",\n    \"id\": 2,\n    \"is_active\": true,\n    \"created_at\": \"2025-06-14T14:31:02.033673+00:00\",\n    \"addresses\": []\n}"
+						},
+						{
+							"name": "If mail already registered",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"customer@example.com\",\r\n    \"password\": \"Password123\",\r\n    \"first_name\": \"Example\",\r\n    \"last_name\": \"Customer\",\r\n    \"phone\": \"555-123-4567\"\r\n  }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{TARGET_HOST}}/api/v1/auth/register",
+									"protocol": "http",
+									"host": [
+										"{{TARGET_HOST}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.5"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 14 Jun 2025 14:25:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "37"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"detail\": \"Email already registered\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login to Get Authentication Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"TOKEN\", pm.response.json().access_token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "kcnaiamh@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Password123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify User Authentication",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/users/me",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Adding User Address",
+			"item": [
+				{
+					"name": "Adding User Address",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"line1\": \"456 Oak Avenue\",\n  \"line2\": \"Suite 200\",\n  \"city\": \"Springfield\",\n  \"state\": \"IL\",\n  \"postal_code\": \"62704\",\n  \"country\": \"United States\",\n  \"is_default\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/users/me/addresses",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Creating Products with Automatic Inventory",
+			"item": [
+				{
+					"name": "Create Product 1 - Smartphone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"PRODUCT_ID_1\", pm.response.json()._id)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"KC Smartphone\",\n    \"description\": \"Latest model with high-end camera and long battery life\",\n    \"category\": \"Electronics\",\n    \"price\": 899.99,\n    \"quantity\": 50\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/products/",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product 2 - Wireless Headphones",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"PRODUCT_ID_2\", pm.response.json()._id)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Wireless Noise-Cancelling Headphones\",\n    \"description\": \"Premium headphones with active noise cancellation\",\n    \"category\": \"Audio\",\n    \"price\": 249.99,\n    \"quantity\": 100\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/products/",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product 3 - Smart Watch",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"PRODUCT_ID_3\", pm.response.json()._id)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer $TOKEN"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Smart Fitness Watch\",\n    \"description\": \"Waterproof fitness tracker with heart rate monitoring\",\n    \"category\": \"Wearables\",\n    \"price\": 179.99,\n    \"quantity\": 75\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/products/",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Browsing Products and Checking Inventory",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/products/",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Inventory Was Created For Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/inventory/{{PRODUCT_ID_1}}",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"inventory",
+								"{{PRODUCT_ID_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Products by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/products/?category=Electronics",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "Electronics"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter Products by Price Range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/products/?min_price=100&max_price=300",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "min_price",
+									"value": "100"
+								},
+								{
+									"key": "max_price",
+									"value": "300"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "5. Placing Orders",
+			"item": [
+				{
+					"name": "Get User ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"USER_ID\", pm.response.json().id)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/users/me",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place an Order for a Single Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"ORDER_ID_1\", pm.response.json()._id)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"{{USER_ID}}\",\n    \"items\": [\n      {\n        \"product_id\": \"{{PRODUCT_ID_1}}\",\n        \"quantity\": 1,\n        \"price\": 899.99\n      }\n    ],\n    \"shipping_address\": {\n      \"line1\": \"123 Example Street\",\n      \"line2\": \"Apt 4B\",\n      \"city\": \"Example City\",\n      \"state\": \"EX\",\n      \"postal_code\": \"12345\",\n      \"country\": \"Example Country\"\n    }\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/orders/",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place an Order for Multiple Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"ORDER_ID_2\", pm.response.json()._id)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"{{USER_ID}}\",\n    \"items\": [\n      {\n        \"product_id\": \"{{PRODUCT_ID_2}}\",\n        \"quantity\": 1,\n        \"price\": 249.99\n      },\n      {\n        \"product_id\": \"{{PRODUCT_ID_3}}\",\n        \"quantity\": 2,\n        \"price\": 179.99\n      }\n    ],\n    \"shipping_address\": {\n      \"line1\": \"123 Example Street\",\n      \"line2\": \"Apt 4B\",\n      \"city\": \"Example City\",\n      \"state\": \"EX\",\n      \"postal_code\": \"12345\",\n      \"country\": \"Example Country\"\n    }\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/orders/",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "6. Viewing and Managing Orders",
+			"item": [
+				{
+					"name": "Get Order Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/orders/{{ORDER_ID_1}}",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{ORDER_ID_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All Orders of the User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/orders/",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order Status",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"paid\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/orders/{{ORDER_ID_1}}/status",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{ORDER_ID_1}}",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel an Order",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer $TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/orders/{{ORDER_ID_2}}",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{ORDER_ID_2}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Inventory After Order Operations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer $TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://{{TARGET_HOST}}/api/v1/inventory/{{PRODUCT_ID_2}}",
+							"protocol": "http",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"inventory",
+								"{{PRODUCT_ID_2}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "PRODUCT_ID_1",
+			"value": ""
+		},
+		{
+			"key": "TOKEN",
+			"value": ""
+		},
+		{
+			"key": "TARGET_HOST",
+			"value": ""
+		},
+		{
+			"key": "PRODUCT_ID_2",
+			"value": ""
+		},
+		{
+			"key": "PRODUCT_ID_3",
+			"value": ""
+		},
+		{
+			"key": "USER_ID",
+			"value": ""
+		},
+		{
+			"key": "ORDER_ID_1",
+			"value": ""
+		},
+		{
+			"key": "ORDER_ID_2",
+			"value": ""
+		}
+	]
+}

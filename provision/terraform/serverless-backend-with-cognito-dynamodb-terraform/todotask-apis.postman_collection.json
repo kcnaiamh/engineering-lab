@@ -1,0 +1,334 @@
+{
+	"info": {
+		"_postman_id": "029918e3-3fd2-4d7a-aa00-1f12075a3811",
+		"name": "todotask apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37309564"
+	},
+	"item": [
+		{
+			"name": "App",
+			"item": [
+				{
+					"name": "Create Task",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseBody = pm.response.json().body;\r",
+									"const parsedBody = JSON.parse(responseBody);\r",
+									"\r",
+									"if (pm.response.code === 200) {\r",
+									"    pm.collectionVariables.set(\"TASK_ID\", parsedBody.task_id)\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function pickRandom(arr) {\r",
+									"    return arr[Math.floor(Math.random() * arr.length)]; // Math.random() -> [0-1)\r",
+									"}\r",
+									"\r",
+									"pm.sendRequest(\"https://dummyjson.com/todos/random\", function (err1, res1) {\r",
+									"    if (err1) {\r",
+									"        console.error(\"Error fetching todo:\", err1);\r",
+									"        return;\r",
+									"    }\r",
+									"\r",
+									"    let todoData = res1.json();\r",
+									"    let todoTitle = todoData.todo;\r",
+									"\r",
+									"    pm.sendRequest(\"https://dummyjson.com/quotes/random\", function (err2, res2) {\r",
+									"        if (err2) {\r",
+									"            console.error(\"Error fetching quote:\", err2);\r",
+									"            return;\r",
+									"        }\r",
+									"\r",
+									"        let quoteData = res2.json();\r",
+									"        let todoDescription = quoteData.quote;\r",
+									"\r",
+									"        let taskStatus = pickRandom([\"pending\", \"running\", \"done\"]);\r",
+									"        let priority = pickRandom([\"high\", \"medium\", \"low\"]);\r",
+									"\r",
+									"        let requestBody = {\r",
+									"            \"title\": todoTitle,\r",
+									"            \"description\": todoDescription,\r",
+									"            \"task_status\": taskStatus,\r",
+									"            \"priority\": priority\r",
+									"        };\r",
+									"\r",
+									"        pm.variables.set(\"dynamicRequestBody\", JSON.stringify(requestBody));\r",
+									"\r",
+									"        // console.log(\"Dynamic Request Body:\", requestBody);\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{dynamicRequestBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TARGET_HOST}}",
+							"host": [
+								"{{TARGET_HOST}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"protocolProfileBehavior": {
+						"protocolVersion": "auto"
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"task_id\": \"{{TASK_ID}}\",\r\n  \"task_status\": \"in-progress\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TARGET_HOST}}",
+							"host": [
+								"{{TARGET_HOST}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"protocolProfileBehavior": {
+						"protocolVersion": "auto"
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TARGET_HOST}}/{{TASK_ID}}",
+							"host": [
+								"{{TARGET_HOST}}"
+							],
+							"path": [
+								"{{TASK_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read All Tasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();\r",
+									"\r",
+									"let tasks = JSON.parse(response.body);\r",
+									"\r",
+									"pm.test(\"Show Parsed JSON\", function () {\r",
+									"    pm.expect(tasks).to.be.an(\"array\");\r",
+									"    console.log(JSON.stringify(tasks, null, 2)); // JSON.stringify(value, replacer, space)\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TARGET_HOST}}",
+							"host": [
+								"{{TARGET_HOST}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Application APIs"
+		},
+		{
+			"name": "Tokens",
+			"item": [
+				{
+					"name": "Get Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"const accessToken = response.access_token;\r",
+									"pm.collectionVariables.set(\"ACCESS_TOKEN\", accessToken)"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "619sq5usloon7m96hbhaaijst0",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "1u7ouqcrr0m0pboce3vjac6apiniq1tqpslrbi1inu0u23n72lqd",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "todotask-m2m-rsi-mddx3l3/access",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{COGNITO_DOMAIN}}/oauth2/token",
+							"host": [
+								"{{COGNITO_DOMAIN}}"
+							],
+							"path": [
+								"oauth2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Token generation apis"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TARGET_HOST",
+			"value": "https://{api-id}.execute-api.{region}.amazonaws.com/{stage-name}/{resource-path}",
+			"description": "Update this with API Gateway URL \n(the shared one is an example)"
+		},
+		{
+			"key": "COGNITO_DOMAIN",
+			"value": "https://todo-task-121.auth.us-west-2.amazoncognito.com",
+			"description": "Cognito IdP domain (don't change)"
+		},
+		{
+			"key": "TASK_ID",
+			"value": ""
+		},
+		{
+			"key": "ACCESS_TOKEN",
+			"value": ""
+		}
+	]
+}

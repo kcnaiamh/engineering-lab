@@ -1,0 +1,82 @@
+services:
+  mongodb-product:
+    image: mongo:5.0
+    volumes:
+      - mongodb_product_data:/data/db
+    networks:
+      br-vxlan:
+        ipv4_address: 10.10.0.10
+    environment:
+      - MONGO_INITDB_DATABASE=product_db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      start_period: 30s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb-order:
+    image: mongo:5.0
+    volumes:
+      - mongodb_order_data:/data/db
+    networks:
+      br-vxlan:
+        ipv4_address: 10.10.0.11
+    environment:
+      - MONGO_INITDB_DATABASE=order_db
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      start_period: 30s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres-inventory:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=inventory_db
+    volumes:
+      - postgres_inventory_data:/var/lib/postgresql/data
+    networks:
+      br-vxlan:
+        ipv4_address: 10.10.0.12
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d inventory_db"]
+      start_period: 30s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres-user:
+    image: postgres:13
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=user_db
+    volumes:
+      - postgres_user_data:/var/lib/postgresql/data
+    networks:
+      br-vxlan:
+        ipv4_address: 10.10.0.9
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d user_db"]
+      start_period: 30s
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  br-vxlan:
+    external: true
+
+volumes:
+  mongodb_product_data:
+  mongodb_order_data:
+  postgres_inventory_data:
+  postgres_user_data:

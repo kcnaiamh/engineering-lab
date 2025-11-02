@@ -1,0 +1,72 @@
+services:
+  # API Gateway
+  nginx-gateway:
+    depends_on:
+      - product-service
+      - inventory-service
+    image: nginx:alpine
+    container_name: nginx-gateway-master
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      br-vxlan:
+        ipv4_address: 10.10.0.100
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      start_period: 40s
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Product Service and its database
+  product-service:
+    build:
+      context: ./product-service
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - INVENTORY_SERVICE_URL=http://inventory-service:8002/api/v1
+    env_file:
+      - ./product-service/.env
+    networks:
+      br-vxlan:
+        ipv4_address: 10.10.0.5
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health || exit 1"]
+      start_period: 40s
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Inventory Service and its database
+  inventory-service:
+    build:
+      context: ./inventory-service
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8002"
+    environment:
+      - PRODUCT_SERVICE_URL=http://product-service:8000/api/v1
+      - DATABASE_URL=postgresql://postgres:postgres@postgres-inventory:5432/inventory_db
+    env_file:
+      - ./inventory-service/.env
+    networks:
+      br-vxlan:
+        ipv4_address: 10.10.0.6
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8002/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  br-vxlan:
+    external: true

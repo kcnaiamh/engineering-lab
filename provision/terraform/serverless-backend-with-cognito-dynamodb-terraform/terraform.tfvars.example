@@ -1,0 +1,38 @@
+region                     = "us-west-2"
+table_name                 = "TaskTable"
+user_pool_name             = "todotask_user_pool"
+resource_server_identifier = "todotask-m2m-rsi-mddx3l3"
+app_client_name            = "todotask_app_client"
+api_name                   = "todotask_api"
+file_names = {
+  create-task    = "create-task.py"
+  read-all-tasks = "read-all-tasks.py"
+  update-task    = "update-task.py"
+  delete-task    = "delete-task.py"
+}
+lambda_functions = {
+  get = {
+    handler  = "read-all-tasks.lambda_handler"
+    runtime  = "python3.9"
+    filename = "./modules/lambda/zips/read-all-tasks.zip"
+    env_vars = {}
+  }
+  post = {
+    handler  = "create-task.lambda_handler"
+    runtime  = "python3.9"
+    filename = "./modules/lambda/zips/create-task.zip"
+    env_vars = {}
+  }
+  patch = {
+    handler  = "update-task.lambda_handler"
+    runtime  = "python3.9"
+    filename = "./modules/lambda/zips/update-task.zip"
+    env_vars = {}
+  }
+  delete = {
+    handler  = "delete-task.lambda_handler"
+    runtime  = "python3.9"
+    filename = "./modules/lambda/zips/delete-task.zip"
+    env_vars = {}
+  }
+}

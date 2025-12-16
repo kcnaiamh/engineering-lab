@@ -22,5 +22,5 @@ sudo make install
 popd
 
 # install the kernel headers
-sudo apt-get install linux-headers-$(uname -r)
+sudo apt-get install -y linux-headers-$(uname -r)
 ls -la /lib/modules/$(uname -r)/build
